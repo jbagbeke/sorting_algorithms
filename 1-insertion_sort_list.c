@@ -9,8 +9,9 @@ void insertion_sort_list(listint_t **list)
 {
 	listint_t *tmp1, *current = *list, *tmp2, *reversed;
 
-	if (!list || !(*list) || (!(*list)->next))
+	if (!list || !(*list) || !((*list)->next))
 		return;
+
 	while (current->next)
 	{
 		if (current->n  > current->next->n)
