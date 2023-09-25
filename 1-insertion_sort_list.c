@@ -1,44 +1,47 @@
-#include "sort.h"
+#include <stdio.h>
+
 
 /**
- * insertion_sort_list - Sorts data using insertion algorithm
- * @list: Pointer to a pointer that points to the list to be sorted
- * Return: Void
+ * insertion_sort_list - Sorts a doubly linked list of integers in ascending order.
+ * @list: A pointer to a pointer to the head of the list.
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *tmp1, *current = *list, *tmp2, *reversed;
+    if (!list || !(*list) || !(*list)->next)
+        return;
 
-	if (!(*list) || !(*list)->next)
-		return;
+    listint_t *current, *tmp, *prev;
 
-	while (current->next)
-	{
-		if (current->n  > current->next->n)
-		{
-			reversed = current->next;
-			while (reversed->prev && reversed->n < reversed->prev->n)
-			{
-				tmp1 = reversed->next;
-				tmp2 = reversed->prev;
-				tmp2->next = tmp1;
+    current = (*list)->next;
 
-				if (tmp1)
-					tmp1->prev = tmp2;
+    while (current)
+    {
+        tmp = current;
+        prev = current->prev;
 
-				reversed->prev = tmp2->prev;
-				reversed->next = tmp2;
+        while (prev && tmp->n < prev->n)
+        {
+            if (tmp->next)
+                tmp->next->prev = prev;
 
-				if (tmp2->prev)
-					tmp2->prev->next = reversed;
+            prev->next = tmp->next;
+            tmp->prev = prev->prev;
 
-				tmp2->prev = reversed;
-				if (reversed->prev == NULL)
-					*list = reversed;
-				print_list(*list);
-			}
-		}
-		else
-			current = current->next;
-	}
+            if (prev->prev)
+                prev->prev->next = tmp;
+            else
+                *list = tmp;
+
+            prev->prev = tmp;
+            tmp->next = prev;
+
+
+            print_list(*list);
+
+            prev = tmp->prev;
+        }
+
+        current = current->next;
+    }
 }
+
