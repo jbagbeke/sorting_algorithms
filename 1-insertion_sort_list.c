@@ -7,37 +7,33 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *tmp1, *current = *list, *tmp2, *back;
+	listint_t *tmp1, *current = *list, *tmp2, *reversed;
 
 	if (!list || !(*list) || (!(*list)->next))
 		return;
-	while (current->next != NULL)
+	while (current->next)
 	{
-		if ((current->n) > (current->next->n))
+		if (current->n  > current->next->n)
 		{
-			tmp1 = current->next;
-			tmp2 = current->prev;
-			current->prev = tmp1;
-			current->next = tmp1->next;
-			tmp1->next = current;
-			tmp1->prev = tmp2;
-			tmp2->next = tmp1;
-			back = tmp1;
-			print_list(*list);
-
-			while (back->prev != NULL && back->n < back->prev->n)
+			reversed = current->next;
+			while (reversed->prev && reversed->n < reversed->prev->n)
 			{
-				tmp1 = back->next;
-				tmp2 = back->prev;
+				tmp1 = reversed->next;
+				tmp2 = reversed->prev;
 				tmp2->next = tmp1;
-				tmp1->prev = tmp2;
-				back->prev = tmp2->prev;
-				back->next = tmp2;
-				if (tmp2->prev != NULL)
-					tmp2->prev->next = back;
-				tmp2->prev = back;
-				if (back->prev == NULL)
-					*list = back;
+
+				if (tmp1)
+					tmp1->prev = tmp2;
+
+				reversed->prev = tmp2->prev;
+				reversed->next = tmp2;
+
+				if (tmp2->prev)
+					tmp2->prev->next = reversed;
+
+				tmp2->prev = reversed;
+				if (reversed->prev == NULL)
+					*list = reversed;
 				print_list(*list);
 			}
 		}
