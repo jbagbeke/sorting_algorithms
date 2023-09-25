@@ -16,6 +16,12 @@ void insertion_sort_list(listint_t **list)
 
 	while (current->next)
 	{
+		if (current->prev == NULL)
+		{
+			current = current->next;
+			continue;
+		}
+
 		if (current->n  > current->next->n)
 		{
 			reversed = current->next;
@@ -37,7 +43,6 @@ void insertion_sort_list(listint_t **list)
 				tmp2->prev = reversed;
 				if (reversed->prev == NULL)
 					*list = reversed;
-				current = reversed;
 				print_list(*list);
 			}
 		}
