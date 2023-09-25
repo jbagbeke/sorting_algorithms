@@ -1,0 +1,100 @@
+#include "sort.h"
+
+/**
+ * insertion_sort_list - Sorts data using insertion algorithm
+ * @list: Pointer to a pointer that points to the list to be sorted
+ * Return: Void
+ */
+void insertion_sort_list(listint_t **list)
+{
+	listint_t *tmp1 = NULL, *head, *p_node = NULL, *sort, *tmp2 = NULL, *n_node = NULL;
+	listint_t *fls_head;
+
+	head = *list;
+	sort = NULL;
+
+	if (!list || !(*list) || (!(*list)->next))
+		return;
+
+	while (head != NULL && head ->next != NULL)
+	{
+		if (head->n > head->next->n)
+		{
+			tmp1 = head;
+			tmp2 = head->prev;
+			head = head->next;
+			tmp1->next = head->next;
+			tmp1->prev = head;
+			head->prev = tmp2;
+			head->next = tmp1;
+			fls_head = head;
+			sort = head;
+			head = tmp1;
+			print_list(sort);
+
+			if (fls_head->n < fls_head->prev->n)
+			{
+				p_node = fls_head->prev;
+				n_node = fls_head->next;
+				p_node->next = n_node;
+				fls_head->prev = p_node->prev;
+				p_node->prev = fls_head;
+				n_node->prev = p_node;
+				fls_head->next = p_node;
+				sort = fls_head;
+				print_list(sort);
+
+			}
+		}
+		head = head->next;
+	}
+}
+
+
+
+
+
+listint_t *create_listint(const int *array, size_t size)
+{
+    listint_t *list;
+    listint_t *node;
+    int *tmp;
+
+    list = NULL;
+    while (size--)
+    {
+        node = malloc(sizeof(*node));
+        if (!node)
+            return (NULL);
+        tmp = (int *)&node->n;
+        *tmp = array[size];
+        node->next = list;
+        node->prev = NULL;
+        list = node;
+        if (list->next)
+            list->next->prev = list;
+    }
+    return (list);
+}
+
+/**
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
+int main(void)
+{
+    listint_t *list;
+    int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
+    size_t n = sizeof(array) / sizeof(array[0]);
+
+    list = create_listint(array, n);
+    if (!list)
+        return (1);
+    print_list(list);
+    printf("\n");
+    insertion_sort_list(&list);
+    printf("\n");
+    print_list(list);
+    return (0);
+}
