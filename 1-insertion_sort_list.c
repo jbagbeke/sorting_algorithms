@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "sort.h"
 
 
 /**
@@ -7,10 +7,11 @@
  */
 void insertion_sort_list(listint_t **list)
 {
+	listint_t *current, *tmp, *prev;
+
     if (!list || !(*list) || !(*list)->next)
         return;
 
-    listint_t *current, *tmp, *prev;
 
     current = (*list)->next;
 
@@ -44,4 +45,3 @@ void insertion_sort_list(listint_t **list)
         current = current->next;
     }
 }
-
