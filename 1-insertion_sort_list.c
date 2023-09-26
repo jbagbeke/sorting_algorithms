@@ -14,15 +14,9 @@ void insertion_sort_list(listint_t **list)
 
 	current = *list;
 
-	while (current->next)
+	while (current)
 	{
-		if (current->prev == NULL)
-		{
-			current = current->next;
-			continue;
-		}
-
-		if (current->n  > current->next->n)
+		if (current->next && current->n  > current->next->n)
 		{
 			reversed = current->next;
 			while (reversed->prev && reversed->n < reversed->prev->n)
