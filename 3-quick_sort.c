@@ -10,29 +10,36 @@
  */
 int partition_it(int *array, int low, int high, int size)
 {
-	int i;
-	int pivot, tmp;
+	int n = low - 1, i, pivot, tmp;
 
 	pivot = array[high];
 
 	for (i = low; i < high; i++)
 	{
-		if (array[i] <= pivot)
+		if (array[i] < array[high])
 		{
+			n++;
+
+			if (n < i)
+			{
 			tmp = array[i];
-			array[i] = array[low];
-			array[low] = tmp;
+			array[i] = array[n];
+			array[n] = tmp;
 
 			print_array(array, size);
-			low++;
+			}
 		}
 	}
 
-	tmp = array[low];
-	array[low] = pivot;
-	array[high] = tmp;
+	if (array[n + 1] > array[high])
+	{
+		tmp = array[n + 1];
+		array[n + 1] = pivot;
+		array[high] = tmp;
+		print_array(array, size);
+	}
 
-	return (low);
+	return (n + 1);
 }
 
 
