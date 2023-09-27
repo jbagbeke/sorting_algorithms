@@ -1,20 +1,5 @@
 #include "sort.h"
 
-int partition_it(int *array, int low, int high, int size);
-void quick_partition(int *array, int low, int high, int size);
-
-
-/**
- * quick_sort - Sorts an array using quick sort algo
- * @array: Array to be sorted
- * @size: Size of the array
- * Return: Void
- */
-void quick_sort(int *array, size_t size)
-{
-	quick_partition(array, 0, size - 1, size);
-}
-
 
 /**
  * quick_partition - Partitions array using Lomuto part scheme
@@ -32,8 +17,8 @@ void quick_partition(int *array, int low, int high, int size)
 	{
 		low_temp = partition_it(array, low, high, size);
 
-		partition_it(array, low, low_temp - 1, size);
-		partition_it(array, low_temp + 1, high, size);
+		quick_partition(array, low, low_temp - 1, size);
+		quick_partition(array, low_temp + 1, high, size);
 	}
 }
 
@@ -71,4 +56,16 @@ int partition_it(int *array, int low, int high, int size)
 	array[high] = tmp;
 
 	return (low);
+}
+
+
+/**
+ * quick_sort - Sorts an array using quick sort algo
+ * @array: Array to be sorted
+ * @size: Size of the array
+ * Return: Void
+ */
+void quick_sort(int *array, size_t size)
+{
+	quick_partition(array, 0, size - 1, size);
 }
