@@ -15,7 +15,7 @@ int partition_it(int *array, int low, int high, int size)
 	pivot = array[high];
 	printf("HELLO\n");
 	fflush(stdout);
-	for (i = low; i < high; i++)
+	for (i = low; i < high - 1; i++)
 	{
 		if (array[i] <= pivot)
 		{
@@ -31,7 +31,7 @@ int partition_it(int *array, int low, int high, int size)
 	tmp = array[low];
 	array[low] = pivot;
 	array[high] = tmp;
-
+	printf("%d\n", low);
 	return (low);
 }
 
@@ -51,8 +51,9 @@ void quick_partition(int *array, int low, int high, int size)
 	{
 	ppos = partition_it(array, low, high, size);
 
-	quick_partition(array, 0, ppos - 1, size);
-	quick_partition(array, ppos + 1, size - 1, size);
+	quick_partition(array, low, ppos - 1, size);
+	printf("HEYYYAA:: %d\n", ppos);
+	quick_partition(array, ppos + 1, high, size);
 	}
 }
 
