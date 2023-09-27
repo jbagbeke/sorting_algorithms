@@ -10,29 +10,36 @@
  */
 int partition_it(int *array, int low, int high, int size)
 {
-	int tmp, i, pivot;
+	int n = low - 1, i, pivot, tmp;
 
 	pivot = array[high];
-	printf("HELLO\n");
-	fflush(stdout);
+
 	for (i = low; i < high; i++)
 	{
-		if (array[i] <= pivot)
+		if (array[i] < array[high])
 		{
+			n++;
+
+			if (n < i)
+			{
 			tmp = array[i];
-			array[i] = array[low];
-			array[low] = tmp;
+			array[i] = array[n];
+			array[n] = tmp;
 
 			print_array(array, size);
-			low++;
+			}
 		}
 	}
 
-	tmp = array[low];
-	array[low] = pivot;
-	array[high] = tmp;
+	if (array[n + 1] > array[high])
+	{
+		tmp = array[n + 1];
+		array[n + 1] = pivot;
+		array[high] = tmp;
+		print_array(array, size);
+	}
 
-	return (low);
+	return (n + 1);
 }
 
 
@@ -46,13 +53,14 @@ int partition_it(int *array, int low, int high, int size)
  */
 void quick_partition(int *array, int low, int high, int size)
 {
-	int ppos;
+	int low_temp;
+
 	if (low < high)
 	{
-	ppos = partition_it(array, low, high, size);
+		low_temp = partition_it(array, low, high, size);
 
-	quick_partition(array, 0, ppos - 1, size);
-	quick_partition(array, ppos + 1, size - 1, size);
+		quick_partition(array, low, low_temp - 1, size);
+		quick_partition(array, low_temp + 1, high, size);
 	}
 }
 
@@ -66,20 +74,4 @@ void quick_partition(int *array, int low, int high, int size)
 void quick_sort(int *array, size_t size)
 {
 	quick_partition(array, 0, size - 1, size);
-}
-
-
-
-
-int main(void)
-{
-    int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
-    size_t n = sizeof(array) / sizeof(array[0]);
-
-    print_array(array, n);
-    printf("\n");
-    quick_sort(array, n);
-    printf("\n");
-    print_array(array, n);
-    return (0);
 }
