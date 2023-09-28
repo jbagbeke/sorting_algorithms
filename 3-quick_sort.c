@@ -53,6 +53,7 @@ int partition_it(int *array, int low, int high, int size)
 void quick_partition(int *array, int low, int high, int size)
 {
 	int ppos;
+
 	if (low < high)
 	{
 	ppos = partition_it(array, low, high, size);
