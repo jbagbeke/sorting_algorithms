@@ -54,8 +54,11 @@ void shell_sort(int *array, size_t size)
 	size_t i;
 	int intval;
 
+	if (!array || size == 1 || size == 0)
+		return;
+
 	knuth_seq(&intval, size);
-	
+
 	while (intval >= 1)
 	{
 		for (i = 0; i < size; i++)
