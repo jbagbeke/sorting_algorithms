@@ -10,7 +10,7 @@ void knuth_seq(int *num, size_t size)
 {
 	int intval = 1;
 
-	while (intval <= size)
+	while ((size_t)intval <= size)
 	{
 		*num = intval;
 		intval = intval * 3 + 1;
@@ -26,7 +26,8 @@ void knuth_seq(int *num, size_t size)
  */
 void knuth_shell(int *array, size_t size, int intval)
 {
-	int i, tmp;
+	size_t i;
+	int tmp;
 
 	for (i = 0; i < size; i++)
 	{
@@ -50,7 +51,8 @@ void knuth_shell(int *array, size_t size, int intval)
  */
 void shell_sort(int *array, size_t size)
 {
-	int intval, i, n, tmp, j = 0;
+	size_t i;
+	int intval;
 
 	knuth_seq(&intval, size);
 	
