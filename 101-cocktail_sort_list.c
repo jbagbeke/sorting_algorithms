@@ -52,12 +52,13 @@ void cock_tail(listint_t *list, listint_t **real_list, int *num)
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *current = *list, *forwd, *tmp1, *tmp2;
+	listint_t *current, *forwd, *tmp1, *tmp2;
 	int terminate;
 
 	if (!list || !(*list) || !(*list)->next)
 		return;
 
+	current = *list;
 	while (current->next)
 	{
 		forwd = current->next;
