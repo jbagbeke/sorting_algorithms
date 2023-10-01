@@ -12,7 +12,6 @@ void cock_tail(listint_t *list, listint_t **real_list, int *num)
 	listint_t *backwd, *tmp1, *tmp2;
 
 	*num = 0;
-
 	while (list->prev)
 	{
 		backwd = list->prev;
@@ -33,7 +32,7 @@ void cock_tail(listint_t *list, listint_t **real_list, int *num)
 
 			if (tmp1)
 				tmp1->next = list;
-			
+
 			if (!list->prev)
 				*real_list = list;
 
@@ -53,18 +52,14 @@ void cock_tail(listint_t *list, listint_t **real_list, int *num)
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *current, *forwd, *tmp1, *tmp2;
+	listint_t *current = *list, *forwd, *tmp1, *tmp2;
 	int terminate;
 
 	if (!list || !(*list) || !(*list)->next)
 		return;
-
-	current = *list;
-
 	while (current->next)
 	{
 		forwd = current->next;
-
 		if (current->n > forwd->n)
 		{
 			tmp1 = forwd->next;
@@ -76,21 +71,18 @@ void cocktail_sort_list(listint_t **list)
 			current->prev = forwd;
 			forwd->next = current;
 			forwd->prev = tmp2;
-			if (!forwd->prev)
-				*list = forwd;
-
+			 if (!forwd->prev)
+				 *list = forwd;
 			if (tmp2)
 			{
 				tmp2->next = forwd;
-				if (!tmp2->prev)
+				if (!tmp2->prev || !forwd->prev)
 					*list = tmp2;
 			}
-
 			print_list(*list);
 		}
 		else
 			current = current->next;
-
 		if (!current->next)
 		{
 			cock_tail(current, list, &terminate);
