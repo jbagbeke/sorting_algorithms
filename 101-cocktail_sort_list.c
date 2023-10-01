@@ -76,9 +76,15 @@ void cocktail_sort_list(listint_t **list)
 			current->prev = forwd;
 			forwd->next = current;
 			forwd->prev = tmp2;
+			if (!forwd->prev)
+				*list = forwd;
 
 			if (tmp2)
+			{
 				tmp2->next = forwd;
+				if (!tmp2->prev)
+					*list = tmp2;
+			}
 
 			print_list(*list);
 		}
